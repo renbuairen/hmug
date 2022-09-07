@@ -34,13 +34,14 @@
         <!-- 楼层图片区域 -->
         <view class="floor-img-box">
           <!-- 左侧大图片的盒子 -->
-          <view class="left-img-box">
+          <view @click="goGoodList(item.product_list[0].navigator_url)" class="left-img-box">
             <image class="left-img" :src="item.product_list[0].image_src"
               :style="{width: item.product_list[0].image_width + 'rpx'}"></image>
           </view>
           <!-- 右侧 4 个小图片的盒子 -->
           <view class="right-img-box">
-            <view class="right-img-item" v-for="(item2, i2) in item.product_list" :key="i2" v-if="i2 !== 0">
+            <view @click="goGoodList(item2.navigator_url)" class="right-img-item"
+              v-for="(item2, i2) in item.product_list" :key="i2" v-if="i2 !== 0">
               <image :src="item2.image_src" mode="widthFix" :style="{width: item2.image_width + 'rpx'}"></image>
             </view>
           </view>
@@ -96,6 +97,15 @@
           })
         }
       },
+
+      //跳转到商品列表
+      goGoodList(url) {
+        const index = url.indexOf('?')
+        const str = url.substr(index + 1)
+        uni.navigateTo({
+          url: '/subpkg/good_list/good_list?' + str
+        })
+      }
     },
 
     //页面加载时
